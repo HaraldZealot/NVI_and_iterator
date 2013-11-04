@@ -1,5 +1,7 @@
 #include "tree.h"
 
+//------- TreeIterator -------//
+
 TreeIterator::TreeIterator():
     owner(0),
     current(0)
@@ -45,6 +47,8 @@ TreeIterator::TreeIterator(const Tree *owner, void *current):
 {}
 
 
+//------- Tree -------//
+
 Tree::~Tree()
 {
     clear();
@@ -53,6 +57,16 @@ Tree::~Tree()
 void Tree::addElement(const Data &value)
 {
     addElementImpl(value);
+}
+
+Tree::Iterator Tree::erase(Tree::Iterator position)
+{
+    if(this != position.owner)
+        throw TreeIteratorException();
+
+    void *pointer = position.current;
+    eraseImpl(pointer);
+    return TreeIterator(this, pointer);
 }
 
 Tree::Iterator Tree::begin() const

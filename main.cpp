@@ -15,6 +15,18 @@ int main()
             cout << *it << " ";
 
         cout << endl;
+        SimpleTree::Iterator jt = tree.begin();
+        ++jt;
+        ++jt;
+        ++jt;
+        cout << *jt << endl;
+        jt = tree.erase(jt);
+        cout << *jt << endl;
+
+        for(SimpleTree::Iterator it = tree.begin(), end = tree.end(); it != end; ++it)
+            cout << *it << " ";
+
+        cout << endl;
     }
     catch(exception &e)
     {

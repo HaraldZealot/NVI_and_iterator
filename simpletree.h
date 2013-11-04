@@ -14,8 +14,9 @@ class SimpleTree : public Tree
     private:
         Data &asteriscImpl(void *pointer) const;
         void nextImpl(void *&pointer) const;
-        void addElementImpl(const Data &value);
         void *beginImpl() const;
+        void addElementImpl(const Data &value);
+        void eraseImpl(void *&pointer);
         void clear();
 
         struct Node
@@ -27,6 +28,9 @@ class SimpleTree : public Tree
             ~Node();
         } *root;
         static void addElement(Node *&current, Node *parent, Node::Branching branching, const Data &value);
+        void eraseLeaf(Node *&node);
+        void eraseInChain(Node *&node);
+        void eraseFork(Node *&node);
         static void clear(Node *&node);
 };
 

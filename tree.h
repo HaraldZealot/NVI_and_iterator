@@ -15,6 +15,8 @@ class Tree
         Tree() {}
         ~Tree();
         void addElement(const Data &value);
+        Iterator erase(Iterator position);
+        int erase(const Data &value);
         Iterator begin() const;
         Iterator end() const;
 
@@ -26,8 +28,9 @@ class Tree
         //Implementation
         virtual Data &asteriscImpl(void *pointer) const = 0;
         virtual void nextImpl(void *&pointer) const = 0;
-        virtual void addElementImpl(const Data &value) = 0;
         virtual void *beginImpl() const = 0;
+        virtual void addElementImpl(const Data &value) = 0;
+        virtual void eraseImpl(void *&pointer) = 0;
         virtual void clear() {};
 };
 
