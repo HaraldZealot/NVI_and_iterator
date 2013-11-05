@@ -11,7 +11,7 @@ SimpleTree::SimpleTree(const Data *array, int size):
     root(0)
 {
     for(int i = 0; i < size; ++i)
-        ((Tree *)this)->addElement(array[i]);// гэта хіба вычварэнства, але тут можна выклікаць і чатырох аргументны варыянт
+        ((Tree *)this)->insert(array[i]);// гэта хіба вычварэнства, але тут можна выклікаць і чатырох аргументны варыянт
 }
 
 SimpleTree::~SimpleTree()
@@ -66,9 +66,45 @@ void *SimpleTree::beginImpl() const
     return (void *)current;
 }
 
-void SimpleTree::addElementImpl(const Data &value)
+void SimpleTree::findImpl(const Data &value, void *&pointer) const
 {
-    addElement(root, 0, Node::origin, value);
+    Node *current = root;
+
+    while(current && value != current->content)
+        current = value < current->content ? current->left : current->right;
+
+    pointer = (void *)current;
+}
+
+void SimpleTree::insertImpl(const Data &value, void *&pointer)
+{
+    Node *parent = 0, *current = (Node *)root;
+    Node::Branching branching = Node::origin;
+
+    while(current)
+    {
+        parent = current;
+
+        if(value < current->content)
+        {
+            branching = Node::leftBranch;
+            current = current->left;
+        }
+        else
+        {
+            branching = Node::rightBranch;
+            current = current->right;
+        }
+    }
+
+    current = new Node(value, parent, branching);
+
+    if(parent)
+        (branching == Node::leftBranch ? parent->left : parent->right) = current;
+    else
+        root = current;
+
+    pointer = (void *)current;
 }
 
 void SimpleTree::eraseImpl(void *&pointer)
@@ -91,16 +127,6 @@ void SimpleTree::eraseImpl(void *&pointer)
                 root = current;
         }
     }
-}
-
-void SimpleTree::addElement(SimpleTree::Node *&current, SimpleTree::Node *parent, SimpleTree::Node::Branching branching, const Data &value)
-{
-    if(!current)
-        current = new Node(value, parent, branching);
-    else if(value < current->content)
-        addElement(current->left, current, Node::leftBranch, value);
-    else if(value > current->content)
-        addElement(current->right, current, Node::rightBranch, value);
 }
 
 void SimpleTree::eraseLeaf(SimpleTree::Node *&node)

@@ -14,8 +14,9 @@ class Tree
         typedef TreeIterator Iterator;
         Tree() {}
         ~Tree();
-        void addElement(const Data &value);
-        Iterator erase(Iterator position);
+        Iterator find(const Data &value)const;
+        Iterator insert(const Data &value);
+        Iterator erase(const Iterator &position);
         int erase(const Data &value);
         Iterator begin() const;
         Iterator end() const;
@@ -29,7 +30,8 @@ class Tree
         virtual Data &asteriscImpl(void *pointer) const = 0;
         virtual void nextImpl(void *&pointer) const = 0;
         virtual void *beginImpl() const = 0;
-        virtual void addElementImpl(const Data &value) = 0;
+        virtual void findImpl(const Data &value, void *&pointer) const=0;
+        virtual void insertImpl(const Data &value, void *&pointer) = 0;
         virtual void eraseImpl(void *&pointer) = 0;
         virtual void clear() {};
 };

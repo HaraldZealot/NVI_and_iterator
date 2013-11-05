@@ -54,12 +54,21 @@ Tree::~Tree()
     clear();
 }
 
-void Tree::addElement(const Data &value)
+Tree::Iterator Tree::find(const Data &value) const
 {
-    addElementImpl(value);
+    void *pointer = 0;
+    findImpl(value, pointer);
+    return Iterator(this, pointer);
 }
 
-Tree::Iterator Tree::erase(Tree::Iterator position)
+Tree::Iterator Tree::insert(const Data &value)
+{
+    void *pointer = 0;
+    insertImpl(value, pointer);
+    return Iterator(this, pointer);
+}
+
+Tree::Iterator Tree::erase(const Iterator &position)
 {
     if(this != position.owner)
         throw TreeIteratorException();
@@ -67,6 +76,22 @@ Tree::Iterator Tree::erase(Tree::Iterator position)
     void *pointer = position.current;
     eraseImpl(pointer);
     return TreeIterator(this, pointer);
+}
+
+int Tree::erase(const Data &value)
+{
+    int counter = 0;
+    void *pointer = 0;
+    findImpl(value, pointer);
+
+    while(pointer)
+    {
+        ++counter;
+        eraseImpl(pointer);
+        findImpl(value, pointer);
+    }
+
+    return counter;
 }
 
 Tree::Iterator Tree::begin() const
