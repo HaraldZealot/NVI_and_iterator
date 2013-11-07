@@ -25,12 +25,14 @@ class Tree
         //Interface for Iterator
         Data &asterisc(void *pointer) const;
         void next(void *&pointer) const;
+        void previous(void *&pointer) const;
 
         //Implementation
         virtual Data &asteriscImpl(void *pointer) const = 0;
         virtual void nextImpl(void *&pointer) const = 0;
+        virtual void previousImpl(void *&pointer) const = 0;
         virtual void *beginImpl() const = 0;
-        virtual void findImpl(const Data &value, void *&pointer) const=0;
+        virtual void findImpl(const Data &value, void *&pointer) const = 0;
         virtual void insertImpl(const Data &value, void *&pointer) = 0;
         virtual void eraseImpl(void *&pointer) = 0;
         virtual void clear() {};
@@ -48,6 +50,8 @@ class TreeIterator
         Data &operator*() const;
         TreeIterator operator++();
         TreeIterator operator++(int);
+        TreeIterator operator--();
+        TreeIterator operator--(int);
         bool operator==(const TreeIterator &other) const;
         bool operator!=(const TreeIterator &other) const {return !(*this == other);}
     private:

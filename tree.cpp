@@ -36,6 +36,21 @@ TreeIterator TreeIterator::operator++(int)
     return result;
 }
 
+TreeIterator TreeIterator::operator--()
+{
+    if(owner)
+        owner->previous(current);
+
+    return *this;
+}
+
+TreeIterator TreeIterator::operator--(int)
+{
+    TreeIterator result(*this);
+    --(*this);
+    return result;
+}
+
 bool TreeIterator::operator==(const TreeIterator &other) const
 {
     return owner == other.owner && current == other.current;
@@ -112,4 +127,9 @@ Data &Tree::asterisc(void *pointer) const
 void Tree::next(void *&pointer) const
 {
     nextImpl(pointer);
+}
+
+void Tree::previous(void *&pointer) const
+{
+    previousImpl(pointer);
 }
