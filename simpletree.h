@@ -14,6 +14,7 @@ class SimpleTree : public Tree
     private:
         Data &asteriscImpl(void *pointer) const;
         void nextImpl(void *&pointer) const;
+        void previousImpl(void *&pointer) const;
         void *beginImpl() const;
         void findImpl(const Data &value, void *&pointer) const;
         void insertImpl(const Data &value, void *&pointer);

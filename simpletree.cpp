@@ -55,6 +55,35 @@ void SimpleTree::nextImpl(void *&pointer) const
     }
 }
 
+//TODO no decrement begin, move from end iterator to preend
+void SimpleTree::previousImpl(void *&pointer) const
+{
+    Node *current = (Node *)pointer;
+
+    if(current)
+    {
+        if(current->left)
+        {
+            current = current->left;
+
+            while(current->right)
+                current = current->right;
+        }
+        else
+        {
+            while(current->parent && current->branching == Node::leftBranch)
+                current = current->parent;
+
+            if(!current->parent)
+                current = 0;
+            else
+                current = current->parent;
+        }
+
+        pointer = (void *)current;
+    }
+}
+
 void *SimpleTree::beginImpl() const
 {
     Node *current = root;
