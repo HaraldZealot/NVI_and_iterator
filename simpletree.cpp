@@ -74,11 +74,17 @@ void SimpleTree::previousImpl(void *&pointer) const
             while(current->parent && current->branching == Node::leftBranch)
                 current = current->parent;
 
-            if(!current->parent)
-                current = 0;
-            else
-                current = current->parent;
+            if(current->parent)
+                pointer = (void *)current->parent;
         }
+    }
+    else
+    {
+        current = root;
+
+        if(current)
+            while(current->left)
+                current = current->left;
 
         pointer = (void *)current;
     }

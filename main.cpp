@@ -23,10 +23,10 @@ int main()
         jt = tree.erase(jt);
         cout << *jt << endl;
 
-        for(SimpleTree::Iterator it = tree.begin(), end = tree.end(); it != end; ++it)
+        for(SimpleTree::Iterator it = --(tree.end()), beg = tree.begin(); it != beg; --it)
             cout << *it << " ";
 
-        cout << endl;
+        cout << *tree.begin() << endl;
     }
     catch(exception &e)
     {
