@@ -68,6 +68,8 @@ void SimpleTree::previousImpl(void *&pointer) const
 
             while(current->right)
                 current = current->right;
+
+            pointer = (void *)current;
         }
         else
         {
@@ -76,6 +78,8 @@ void SimpleTree::previousImpl(void *&pointer) const
 
             if(current->parent)
                 pointer = (void *)current->parent;
+            else
+                assert(0);
         }
     }
     else
@@ -83,8 +87,8 @@ void SimpleTree::previousImpl(void *&pointer) const
         current = root;
 
         if(current)
-            while(current->left)
-                current = current->left;
+            while(current->right)
+                current = current->right;
 
         pointer = (void *)current;
     }

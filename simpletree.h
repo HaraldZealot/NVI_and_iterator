@@ -10,7 +10,6 @@ class SimpleTree : public Tree
         SimpleTree();
         SimpleTree(const Data *array, int size);
         ~SimpleTree();
-
     private:
         Data &asteriscImpl(void *pointer) const;
         void nextImpl(void *&pointer) const;
