@@ -6,9 +6,11 @@ CONFIG -= qt
 SOURCES += \
     main.cpp \
     tree.cpp \
-    simpletree.cpp
+    simpletree.cpp \
+    set.cpp
 
 HEADERS += \
     tree.h \
-    simpletree.h
+    simpletree.h \
+    set.h
 
