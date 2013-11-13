@@ -8,6 +8,8 @@ class SimpleTree : public Tree
 {
     public:
         SimpleTree();
+        SimpleTree(const Tree *original);
+        SimpleTree(const SimpleTree &original): Tree(original) {}
         SimpleTree(const Data *array, int size);
         ~SimpleTree();
     private:
@@ -19,6 +21,7 @@ class SimpleTree : public Tree
         void insertImpl(const Data &value, void *&pointer);
         void eraseImpl(void *&pointer);
         void clear();
+        void copy(const Tree *original);
 
         struct Node
         {
@@ -32,6 +35,7 @@ class SimpleTree : public Tree
         void eraseInChain(Node *&node);
         void eraseFork(Node *&node);
         static void clear(Node *&node);
+        static void copy(Node *&copyNode, Node *parent, Node *originalNode);
 };
 
 class SimpleTreeException: public std::exception

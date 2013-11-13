@@ -6,6 +6,11 @@ SimpleTree::SimpleTree():
     root(0)
 {}
 
+SimpleTree::SimpleTree(const Tree *original)
+{
+    copy(original);
+}
+
 SimpleTree::SimpleTree(const Data *array, int size):
     Tree(),
     root(0)
@@ -245,6 +250,21 @@ void SimpleTree::clear(SimpleTree::Node *&node)
         clear(node->left);
         clear(node->right);
         delete node;
+    }
+}
+
+void SimpleTree::copy(const Tree *original)
+{
+    copy(root, 0, ((const SimpleTree *)original)->root);
+}
+
+void SimpleTree::copy(SimpleTree::Node *&copyNode, SimpleTree::Node *parent, SimpleTree::Node *originalNode)
+{
+    if(originalNode)
+    {
+        copyNode = new Node(originalNode->content, parent, originalNode->branching);
+        copy(copyNode->left, copyNode, originalNode->left);
+        copy(copyNode->right, copyNode, originalNode->right);
     }
 }
 

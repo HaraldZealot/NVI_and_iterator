@@ -64,6 +64,11 @@ TreeIterator::TreeIterator(const Tree *owner, void *current):
 
 //------- Tree -------//
 
+Tree::Tree(const Tree &original)
+{
+    copy(&original);
+}
+
 Tree::~Tree()
 {
     clear();

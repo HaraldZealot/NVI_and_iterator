@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <exception>
+#include <cassert>
 
 typedef int Data;
 
@@ -13,6 +14,7 @@ class Tree
         friend TreeIterator;
         typedef TreeIterator Iterator;
         Tree() {}
+        Tree(const Tree &original);
         ~Tree();
         Iterator find(const Data &value)const;
         Iterator insert(const Data &value);
@@ -35,7 +37,8 @@ class Tree
         virtual void findImpl(const Data &value, void *&pointer) const = 0;
         virtual void insertImpl(const Data &value, void *&pointer) = 0;
         virtual void eraseImpl(void *&pointer) = 0;
-        virtual void clear() {};
+        virtual void clear() {}
+        virtual void copy(const Tree *) {}
 };
 
 class TreeIterator
