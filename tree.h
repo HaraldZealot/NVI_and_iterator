@@ -11,7 +11,7 @@ class TreeIterator;
 class Tree
 {
     public:
-        friend TreeIterator;
+        friend class TreeIterator;
         typedef TreeIterator Iterator;
         Tree() {}
         Tree(const Tree &original);
@@ -44,7 +44,7 @@ class Tree
 class TreeIterator
 {
     public:
-        friend Tree;
+        friend class Tree;
         TreeIterator();
         //default copy constructor
         //default assign operator
