@@ -7,8 +7,7 @@ using namespace std;
 class ConsoleSet: public Set
 {
     public:
-        ConsoleSet(Tree *tree = 0): Set(tree) {}
-        ConsoleSet(Data *array, int n, Tree *tree = 0): Set(array, n, tree) {}
+        ConsoleSet(): Set() {}
         ConsoleSet(const Set &original): Set(original) {}
         ConsoleSet &operator=(const ConsoleSet &rhs) {Set::operator=(rhs); return *this;}
         void output(ostream &out) const;
@@ -22,11 +21,10 @@ int main()
 {
     try
     {
-        cout << "\n\n\nSimpleTree demonstartion:\n";
+        cout << "SimpleTree demonstartion:\n";
         const int n = 7;
         int array[n] = {4, 2, 6, 1, 3, 5, 7};
-        SimpleTree tree(array, n);//  насамрэч я думаў тут кшталту палімарфізма Tree *tree = new SimpleTree(array,7);
-        //  але так таксама працуе :)
+        SimpleTree tree(array, n);
 
         for(SimpleTree::Iterator it = tree.begin(), end = tree.end(); it != end; ++it)
             cout << *it << " ";
@@ -52,9 +50,10 @@ int main()
 
         cout << *tree.begin() << endl;
         cout << "\n\n\nSet demonstartion:\n";
-        ConsoleSet setA(array, n);
+        ConsoleSet setA, setB;
+        setA.init<SimpleTree>(array, n);
         int brray[3] = {4, 8, 10};
-        ConsoleSet setB(brray, 3);
+        setB.init<SimpleTree>(brray, 3);
         cout << setA << " U " << setB << " = " << setA.unite(setB) << endl;
         cout << setA << " X " << setB << " = " << setA.intersect(setB) << endl;
         cout << setA << " / " << setB << " = " << setA.substract(setB) << endl;
@@ -63,7 +62,7 @@ int main()
     }
     catch(exception &e)
     {
-        cerr << e.what() << endl;
+        cout << e.what() << endl;
     }
 
     return 0;

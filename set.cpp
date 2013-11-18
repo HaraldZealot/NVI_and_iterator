@@ -1,26 +1,5 @@
 #include "set.h"
-#include "simpletree.h"
-
-Set::Set(Tree *tree):
-    tree(tree)
-{
-    if(!this->tree)
-    {
-        this->tree = new SimpleTree();
-    }
-}
-
-Set::Set(Data *array, int n, Tree *tree):
-    tree(tree)
-{
-    if(!this->tree)
-    {
-        this->tree = new SimpleTree();
-    }
-
-    for(int i = 0; i < n; ++i)
-        this->tree->insert(array[i]);
-}
+#include <cassert>
 
 Set::Set(const Set &original):
     tree(new SimpleTree(original.tree)) //ugly hack
@@ -29,7 +8,9 @@ Set::Set(const Set &original):
 
 Set Set::unite(const Set &rhs) const
 {
+    assert(tree && rhs.tree);//both sets have to initialised
     Set result;
+    result.init<SimpleTree>();
 
     for(Tree::Iterator it = tree->begin(), end = tree->end(); it != end; ++it)
         result.tree->insert(*it);
@@ -43,7 +24,9 @@ Set Set::unite(const Set &rhs) const
 
 Set Set::intersect(const Set &rhs) const
 {
+    assert(tree && rhs.tree);//both sets have to initialised
     Set result;
+    result.init<SimpleTree>();
 
     for(Tree::Iterator it = tree->begin(), end = tree->end(); it != end; ++it)
         if(rhs.tree->find(*it) != rhs.tree->end())
@@ -54,7 +37,9 @@ Set Set::intersect(const Set &rhs) const
 
 Set Set::substract(const Set &rhs) const
 {
+    assert(tree && rhs.tree);//both sets have to initialised
     Set result;
+    result.init<SimpleTree>();
 
     for(Tree::Iterator it = tree->begin(), end = tree->end(); it != end; ++it)
         if(rhs.tree->find(*it) == rhs.tree->end())
@@ -65,7 +50,9 @@ Set Set::substract(const Set &rhs) const
 
 Set Set::symmetricSubstract(const Set &rhs) const
 {
+    assert(tree && rhs.tree);//both sets have to initialised
     Set result;
+    result.init<SimpleTree>();
 
     for(Tree::Iterator it = tree->begin(), end = tree->end(); it != end; ++it)
         if(rhs.tree->find(*it) == rhs.tree->end())
