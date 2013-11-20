@@ -23,10 +23,6 @@ class Tree
         int erase(const Data &value);
         Iterator begin() const;
         Iterator end() const;
-
-        template <typename T>
-        static Tree *factory();
-
     private:
         //Interface for Iterator
         Data &asterisc(void *pointer) const;
@@ -44,13 +40,6 @@ class Tree
         virtual void clear() {}
         virtual void copy(const Tree *) {}
 };
-
-template <typename T>
-Tree *Tree::factory()
-{
-    //TODO some checks
-    return new T();
-}
 
 class TreeIterator
 {
